@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "Lending Departament Specialist";
+}
+
+<h2>Lending Departament Specialist</h2>
+
+@(Html.Kendo().TabStrip().Name("Actions")
+    .Items(
+    items =>
+    {
+        items.Add().Text("Draft Credits").LoadContentFrom("DraftCredits", "LendingDepartamentSpecialist").Selected(true);
+        items.Add().Text("Create Credit").LoadContentFrom("CreateCredit", "Credit");
+        items.Add().Text("Approval Requests").LoadContentFrom("ApprovalRequests", "Credit");
+        items.Add().Text("Clients").LoadContentFrom("ApprovedClients", "Clients");
+    }
+      ))
+
+@Html.Kendo().Window().Name("CreditWindow").Draggable(true).Visible(false).Events(x => x.Refresh("onRefreshKendoWindow"))
+
+<script type="text/javascript">
+    function editLoanEventHandler(e, d) {
+        e.preventDefault();
+        $("#Actions #CreateCreditTabStrip").closest(".k-content").html('');
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        openKendoWindow({
+            selector: "#CreditWindow",
+            url: '@(Url.Action("EditCredit", "Credit"))',
+            data: {
+                creditId: dataItem.Id
+            },
+            title: "Edit Credit"
+        });
+    }
+
+    function sendToReviewLoanEventHandler(e, d) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        $.post('@(Url.Action("SendToReview", "Credit"))', { creditId: dataItem.Id }, function (data) {
+            if (data) {
+                alert("Credit was successfully sent to review");
+            }
+        });
+    }
+</script>

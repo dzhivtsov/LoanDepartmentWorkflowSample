@@ -1,0 +1,37 @@
+﻿@{
+    Layout = null;
+}
+@using System.Web.UI.WebControls
+@using GangsterBank.Web.Models.ClientProfile
+@(Html.Kendo().Scheduler<PaymentShedularModel>()
+    .Name("scheduler")
+    .Date(DateTime.Now)
+    .StartTime(DateTime.Now)
+    .Height(600)
+    .Editable(false)
+    .Views(views =>
+        {
+            views.WorkWeekView();
+            views.CustomView("Agenda");
+        })
+    .Timezone("Etc/UTC")
+    .DataSource(d => d
+        .Model(m =>
+        {
+            m.Id(f => f.TaskId);
+            m.Field(f => f.Title).DefaultValue("No title");
+            m.Field(f => f.OwnerId).DefaultValue(1);
+        })
+        .Read("GetPaymentsForShedular", "ClientProfile", new { clientId = ViewBag.ClientId })
+    )
+)
+
+<script>
+    var Agenda = kendo.ui.AgendaView.extend({
+        endDate: function () {
+            var date = kendo.ui.AgendaView.fn.endDate.call(this);
+            return kendo.date.addDays(date, 9000);
+        },
+        
+    });
+</script>

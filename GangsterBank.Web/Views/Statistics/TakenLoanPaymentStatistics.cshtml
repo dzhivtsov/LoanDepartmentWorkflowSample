@@ -1,0 +1,30 @@
+﻿@{ Layout = null; }
+@using GangsterBank.Web.Models.Statistics
+<div class="k-content">
+    @(Html.Kendo().Chart<SummaryLoanProductStatisticViewModel>()
+      .Name("takenLoanPaymentStatisticChart")
+      .Title(title => title
+                          .Text("Taken Loan Payment Statistic")
+                          .Position(ChartTitlePosition.Top))
+      .Legend(legend => legend
+                            .Visible(true)
+                            .Position(ChartLegendPosition.Top)
+      )
+      .DataSource(ds =>
+                  ds.Read(read => read.Action("TakenLoanPaymentStatisticsData", "Statistics")))
+      .Series(series =>
+          {
+              series.
+                  Pie(model => model.Percentage, model => model.CategoryName)
+                  .Labels(labels => labels
+                                        .Template("#= category #: #= value#%")
+                                        .Visible(true)
+                  )
+                  .StartAngle(150);
+          })
+      .Tooltip(tooltip => tooltip
+                              .Visible(true)
+    .Template("Total amount: #= dataItem.TotalAmount  #")
+
+      ))
+</div>

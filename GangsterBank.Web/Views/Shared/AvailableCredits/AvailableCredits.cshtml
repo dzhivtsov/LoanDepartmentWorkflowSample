@@ -1,0 +1,26 @@
+﻿@{
+    Layout = null;
+}
+
+@using GangsterBank.Web.Models.Credit
+@(Html.Kendo().Grid<AvailableCreditViewModel>().Name("AvailableCredits")
+    .Columns(columns =>
+    {
+        columns.Bound(x => x.Name);
+        columns.Bound(x => x.MinAmount);
+        columns.Bound(x => x.MaxAmount);
+        columns.Bound(x => x.MinPeriodInMonth).HeaderTemplate("Min Time");
+        columns.Bound(x => x.MaxPeriodInMonth).HeaderTemplate("Max Time");
+        columns.Bound(x => x.Percentage).HeaderTemplate("%");
+        columns.Command(x => x.Custom("Take Credit").Click("takeLoanEventHandler"));
+        columns.Command(x => x.Custom("Calculate Credit").Click("calculateLoanEventHandler"));
+    })
+    .Filterable()
+    .Sortable()
+        .DataSource(datasource => datasource.Ajax().Read("GetAvailableCredits", "Credit"))
+                .ClientDetailTemplateId("availableCreditDetialsTemplate")
+    .Pageable(paging => paging.PageSizes(true).Refresh(true))
+      )
+
+@Html.Partial("CreditGridDescriptionSection", "availableCreditDetialsTemplate")
+

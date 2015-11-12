@@ -1,0 +1,16 @@
+﻿@{ Layout = null;}
+@model GangsterBank.Web.Models.EditEmailTemplate.EditEmailTemplateViewModel
+
+@using (Ajax.BeginForm("UpdateTemplate", "EmailTemplates", new AjaxOptions{OnSuccess = "alert('Template was updated')"}))
+{
+    <br/>
+    @Html.EditorFor(model => model.Subject)
+    <br/>
+    <br/>
+    <br/>
+    @Html.Kendo().EditorFor(x => x.Text).Encode(false)
+    <br/>
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.Type)
+    @Html.Kendo().Button().Name("updateEmailtemplate" + Model.Type).Content("Update").HtmlAttributes(new { @style = "margin-left: 40%;" })
+}

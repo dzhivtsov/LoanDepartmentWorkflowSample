@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Cashier";
+}
+
+<h2>Cashier</h2>
+
+<script type="text/javascript">
+    function onOperationCompelteHanlder() {
+        closeKendoWindow($("#Operations"));
+        refreshKendoGrid("#payments");
+    }
+</script>
+
+@Html.Partial("Payments")
+

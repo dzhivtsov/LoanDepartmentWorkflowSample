@@ -1,0 +1,12 @@
+﻿@{ Layout = null; }
+
+@model GangsterBank.Web.Models.Cashier.OperationModel
+
+@using (Ajax.BeginForm("Withdraw", "Cashier", new AjaxOptions { OnComplete = "onOperationCompelteHanlder", OnFailure = "alert('Withdraw have not beed done. There is no enough money');"}))
+{
+    <span>Please enter amount to withdraw</span>
+    @Html.Kendo().NumericTextBoxFor(model => model.Amount).Min(0).Max(Model.CurrentAmount).Format("0")
+    @Html.HiddenFor(model => model.ClientId)
+    @Html.Kendo().Button().Name("withdrawSubmitButton").Content("Withdraw")
+}
+

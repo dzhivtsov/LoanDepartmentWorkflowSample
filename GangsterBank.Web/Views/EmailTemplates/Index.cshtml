@@ -1,0 +1,19 @@
+﻿@{ Layout = null;}
+
+<script type="text/javascript">
+    function emailTemplatesSelectEventHandler(e) {
+        e.sender.contentElements.not(e.contentElement).html("");
+    }
+</script>
+
+@(Html.Kendo().TabStrip().Name("EmailTempaltes")
+    .Items(
+    items =>
+    {
+        items.Add().Text("Reject Request").LoadContentFrom("RejectRequest", "EmailTemplates").Selected(true);
+        items.Add().Text("Approve Request").LoadContentFrom("ApproveRequest", "EmailTemplates");
+        items.Add().Text("Approve User").LoadContentFrom("ApproveUser", "EmailTemplates");
+        items.Add().Text("Deposit").LoadContentFrom("Deposit", "EmailTemplates");
+        items.Add().Text("Withdraw").LoadContentFrom("Withdraw", "EmailTemplates");
+    }
+).Events(x => x.Select("emailTemplatesSelectEventHandler")))

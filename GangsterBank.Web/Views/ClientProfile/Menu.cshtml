@@ -1,0 +1,41 @@
+﻿@using GangsterBank.Web.Infrastructure.Helpers.Location
+@model GangsterBank.Web.Models.ClientProfile.ClientMenuModel
+
+@{ Layout = null;}
+
+<ul class="nav nav-pills clientMenu">
+    <li @if (LocationHelper.IsCurrentControllerAndAction("BasicDetails", "ClientProfileController", ViewContext)) {  @: class="active"
+                }>
+        <a href="@Model.BasicDetailsUrl">Profile</a>
+
+    </li>
+    <li @if (LocationHelper.IsCurrentControllerAndAction("Passport", "ClientProfileController", ViewContext)) {  @: class="active"
+                                                        }>
+        <a href="@Model.PassportUrl">Passport Data</a>
+
+    </li>
+    <li @if (LocationHelper.IsCurrentControllerAndAction("Contacts", "ClientProfileController", ViewContext)) {  @: class="active"
+                                                            }>
+        <a href="@Model.ContactsUrl">Contacts Data</a>
+    </li>
+    <li @if (LocationHelper.IsCurrentControllerAndAction("Employment", "ClientProfileController", ViewContext)) { @: class="active"
+                                                            }>
+        <a href="@Model.EmploymentUrl">Job</a>
+    </li>
+    <li @if (LocationHelper.IsCurrentControllerAndAction("Property", "ClientProfileController", ViewContext)) { @: class="active"
+                        }>
+        <a href="@Model.PropertyUrl">Properties</a>
+    </li>
+    <li @if (LocationHelper.IsCurrentControllerAndAction("Obligations", "ClientProfileController", ViewContext)) { @: class="active"
+        }>
+        <a href="@Model.ObligationsUrl">Obligations</a>
+    </li>
+    @if (Model.IsClient)
+    {
+        <li @if (LocationHelper.IsCurrentControllerAndAction("Index", "ClientProfileController", ViewContext)) { @: class="active" 
+            }>
+            <a href="@Model.CreditsUrl">Credits</a>
+        </li>
+    }
+</ul>
+

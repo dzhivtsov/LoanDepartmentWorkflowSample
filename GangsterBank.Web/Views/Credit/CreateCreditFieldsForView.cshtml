@@ -1,0 +1,103 @@
+﻿@using System.Linq.Expressions
+@using GangsterBank.Domain.Entities.Membership
+@{ Layout = null;}
+@using GangsterBank.Web.Infrastructure.Extensions
+@using GangsterBank.Web.Models.Credit
+@model GangsterBank.Web.Models.Credit.LoanProductViewModel
+
+@functions
+{
+
+    public MvcHtmlString RenderInput<R>(Expression<Func<LoanProductViewModel, R>> property)
+    {
+        return MvcHtmlString.Create(string.Format(@"<div class=""row"">
+                         <div class=""col-md-5 col-sm-5"">
+                                {0}
+                         </div>
+                         <div class=""col-md-5 col-sm-5"">
+                             {1} {2}
+                         </div>
+                     </div>
+
+                     <br />", Html.DisplayNameFor(property), Html.DisplayFor(property), Html.ValidationMessageFor(property)));
+    }
+
+
+}
+
+@Html.ValidationSummary()
+@(Html.Kendo().TabStrip().Name("ViewCreditTabStrip")
+    .Items(
+        items =>
+        {
+            items.Add().Text("Description").Selected(true).Content(
+                @<text>
+                    <br />
+                    <div class="container">
+                        @this.RenderInput(model => model.Name)
+                        <div class="row">
+                            <div class="col-md-5 col-sm-5">
+                                @Html.DisplayNameFor(model => model.Type)
+                            </div>
+                            <div class="col-md-5 col-sm-5">
+                                @Html.DisplayFor(model => model.Type)
+                            </div>
+                        </div>
+
+                        <br />
+
+                        @this.RenderInput(model => model.Percentage)
+                        @this.RenderInput(model => model.MinAmount)
+                        @this.RenderInput(model => model.MaxAmount)
+                        @this.RenderInput(model => model.MinPeriodInMonth)
+                        @this.RenderInput(model => model.MaxPeriodInMonth)
+
+                    </div>
+                </text>);
+            items.Add().Text("Conditions").Content(
+                @<text>
+                    <br />
+                    <div class="container">
+                        @this.RenderInput(model => model.Requirements.MinSalary)
+                        @this.RenderInput(model => model.Requirements.MinWorkOnLastJobInMonths)
+                        @this.RenderInput(model => model.Requirements.NeedEarningsRecord)
+                        @this.RenderInput(model => model.Requirements.NeedGuarantors)
+                        @this.RenderInput(model => model.Requirements.GuarantorsCount)
+                    </div>
+                    <br />
+
+
+                </text>);
+            items.Add().Text("Fines and Payments").Content(
+                @<text>
+                    <br />
+                    <div class="container">
+                        @this.RenderInput(model => model.FineDayPercentage)
+                        @this.RenderInput(model => model.AdvancedRepaymentFirstPossibleMonth)
+                        @this.RenderInput(model => model.AdvancedRepaymentFinePercentage)
+                    </div>
+                    <br />
+                </text>);
+            items.Add().Text("Approvers").Content(
+                @<text>
+                    <br />
+                    <div class="container">
+                        @foreach (Role it in Enum.GetValues(typeof(Role)))
+                        {
+                            if (it != Role.Client && it != Role.Cashier)
+                            {
+                                <div class="row">
+                                    <div class="col-md-5 col-sm-5">
+                                        @Html.Label("Role" + it, Enum.GetName(typeof(Role), it))
+                                    </div>
+                                    @{ bool t = Model.Requirements.Approvers.Any(x => x == it); }
+                                    <div class="col-md-5 col-sm-5">
+                                        <input name="Requirements.Approvers" id="Requirements.Approvers" disabled="disabled" type="checkbox" @(t ? "checked='checked'" : "") value="@it" />
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </text>);
+        }
+        ))

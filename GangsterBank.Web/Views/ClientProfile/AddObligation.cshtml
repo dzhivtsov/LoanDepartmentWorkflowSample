@@ -1,0 +1,26 @@
+﻿@model GangsterBank.Web.Models.ClientProfile.ObligationViewModel
+@{
+    Layout = null;
+}
+@using (Ajax.BeginForm("AddObligation", "ClientProfile", new AjaxOptions
+                                                           {
+                                                               HttpMethod = "POST",
+                                                               InsertionMode = InsertionMode.Replace,
+                                                               UpdateTargetId = "AddObligationWindow",
+                                                               OnSuccess = "onSuccessHandler"
+                                                           }))
+{
+    @Html.EditorForModel()
+    <input type="submit" value="Save" class="btn btn-success" />
+}
+
+<script>
+    function onSuccessHandler(response) {
+        if (typeof response == "boolean") {
+            if (response) {
+                closeKendoWindow($("#AddObligationWindow"));
+                refreshKendoGrid($("#ClientObligations"));
+            }
+        }
+    }
+</script>

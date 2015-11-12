@@ -1,0 +1,24 @@
+﻿@{
+    Layout = null;
+}
+
+@using GangsterBank.Domain.Entities.Credits
+@(Html.Kendo().Grid<LoanProduct>().Name("draftCredits")
+    .Columns(columns =>
+    {
+        columns.Bound(x => x.Name);
+        columns.Bound(x => x.MinAmount);
+        columns.Bound(x => x.MaxAmount);
+        columns.Bound(x => x.Percentage).HeaderTemplate("%");
+        columns.Command(x => x.Custom("Edit").Click("editLoanEventHandler"));
+        columns.Command(x => x.Custom("Send To Review").Click("sendToReviewLoanEventHandler"));
+        columns.Command(x => x.Custom("Approve").Click("approveLoanEventHandler"));
+    })
+    .DataSource(datasource => datasource.Ajax().Read("GetDraftCredits", "Credit"))
+    .Filterable()
+    .Sortable()
+        .ClientDetailTemplateId("draftCreditsDetialsTemplate")
+    .Pageable(paging => paging.PageSizes(true).Refresh(true))
+      )
+
+@Html.Partial("CreditGridDescriptionSection", "draftCreditsDetialsTemplate")

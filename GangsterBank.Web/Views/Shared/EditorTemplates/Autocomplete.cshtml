@@ -1,0 +1,22 @@
+﻿@using GangsterBank.Web.Infrastructure.MetadataAttributes
+
+@functions {
+    private string GetActionName()
+    {
+        return this.GetStringFromModelMetadata(AutoCompleteAttribute.AutoCompleteActionKey);
+    }
+
+    private string GetControllerName()
+    {
+        return this.GetStringFromModelMetadata(AutoCompleteAttribute.AutoCompleteControllerKey);
+    }
+
+    private string GetStringFromModelMetadata(string key)
+    {
+        return this.ViewContext.ViewData.ModelMetadata.AdditionalValues[key].ToString();
+
+    }
+}
+@(Html.Kendo().AutoCompleteFor(m => m)
+          .DataSource(source => source.Read(read => read.Action(this.GetActionName(), this.GetControllerName()))
+                                .ServerFiltering(true)))

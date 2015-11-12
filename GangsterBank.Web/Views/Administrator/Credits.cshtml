@@ -1,0 +1,56 @@
+﻿@{
+    Layout = null;
+}
+
+@using GangsterBank.Domain.Entities.Credits
+
+@(Html.Kendo().Grid<LoanProduct>().Name("credits")
+    .ToolBar(bar => bar.Template("<span onclick=\"createLoanEventHandler()\">Create</span>"))
+    .Columns(columns =>
+    {
+        columns.Bound(x => x.Name);
+        columns.Bound(x => x.Description);
+        columns.Command(x => x.Custom("Edit Loan").Click("editLoanEventHandler"));
+        columns.Command(x => x.Custom("Remove Loan").Click("removeLoanEventHandler"));
+    })
+    .DataSource(datasource => datasource.Ajax().Read("GetAvailableCreditsForAdministrator", "Credit"))
+    .Pageable(paging => paging.PageSizes(true).Refresh(true))
+      )
+
+@Html.Kendo().Window().Name("CreditWindow").Draggable(true).Visible(false).Events(x => x.Refresh("onRefreshKendoWindow"))
+
+<script type="text/javascript">
+    function createLoanEventHandler(e, d) {
+        openKendoWindow({
+            selector: "#CreditWindow",
+            url: '@(Url.Action("CreateCredit", "Credit"))',
+            title: "Create Credit"
+        });
+    }
+
+    function editLoanEventHandler(e, d) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        openKendoWindow({
+            selector: "#CreditWindow",
+            url: '@(Url.Action("EditCredit", "Credit"))',
+            data: {
+                creditId: dataItem.Id
+            },
+            title: "Edit Credit"
+        });
+    }
+
+    function removeLoanEventHandler(e, d) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        $.post('@(Url.Action("RemoveCredit", "Credit"))', {creditId: dataItem.Id}, function (data) {
+            if (data) {
+                alert("Loan was successfully removed");
+            }
+        });
+    }
+</script>
+
+
+

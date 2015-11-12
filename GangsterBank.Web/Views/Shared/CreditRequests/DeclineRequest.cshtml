@@ -1,0 +1,21 @@
+﻿@{ Layout = null;}
+@model GangsterBank.Web.Models.Credit.DeclineRequestViewModel
+<script type="text/javascript">
+    function onRejectCompelteHanlder() {
+        refreshKendoGrid("#approvalRequests");
+        closeKendoWindow($("#DeclineRequestWindow"));
+    }
+</script>
+
+@using (Ajax.BeginForm("DeclineRequest", "Credit", new AjaxOptions { OnComplete = "onRejectCompelteHanlder" }))
+{
+    <span>Please provide decline comments</span>
+    <br/>
+    <br/>
+    <br/>
+    @Html.Kendo().EditorFor(x => x.Text).Encode(false)
+    @Html.HiddenFor(x => x.Id)
+    @Html.HiddenFor(x => x.ClientId)
+    <br/>
+    @Html.Kendo().Button().Name("declineRequestButton").Content("Decline").HtmlAttributes(new { @style = "margin-left: 40%;" })
+}

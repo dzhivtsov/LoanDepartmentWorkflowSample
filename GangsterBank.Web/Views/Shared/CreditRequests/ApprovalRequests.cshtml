@@ -1,0 +1,66 @@
+﻿@{
+    Layout = null;
+}
+
+@using GangsterBank.Web.Models.Credit
+
+<script type="text/javascript">
+    function approveRequestEventHandler(e, d) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        $.post('@(Url.Action("ApproveRequest", "Credit"))', { id: dataItem.Id }, function (data) {
+            if (data) {
+                refreshKendoGrid("#approvalRequests");
+                alert("Request was approved");
+            }
+        });
+    }
+
+    function declineRequestEventHandler(e, d) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        openKendoWindow({
+            selector: "#DeclineRequestWindow",
+            width: 400,
+            url: '@(Url.Action("DeclineRequest", "Credit"))',
+            data: {
+                id: dataItem.Id,
+                clientId: dataItem.ClientId
+            },
+            title: "Decline Request"
+        });
+    }
+</script>
+
+@(Html.Kendo().Grid<ApprovalRequestViewModel>().Name("approvalRequests")
+    .Columns(columns =>
+    {
+        columns.Bound(x => x.FirstName);
+        columns.Bound(x => x.LastName);
+        columns.Bound(x => x.LoanProductName).HeaderTemplate("Product Name");
+        columns.Bound(x => x.Amount);
+        columns.Command(x => x.Custom("Approve Request").Click("approveRequestEventHandler"));
+        columns.Command(x => x.Custom("Decline Request").Click("declineRequestEventHandler"));
+    })
+            .ClientDetailTemplateId("aprovalRequestClientDetialsTemplate")
+    .DataSource(datasource => datasource.Ajax().Read("GetApprovalRequests", "Credit"))
+    .Sortable()
+    .Filterable()
+    .Pageable(paging => paging.PageSizes(true).Refresh(true))
+      )
+
+@Html.Kendo().Window().Name("DeclineRequestWindow").Draggable(true).Visible(false).Events(x => x.Refresh("onRefreshKendoWindow"))
+
+<script id="aprovalRequestClientDetialsTemplate" type="text/kendo-tmpl">
+    @(Html.Kendo().TabStrip()
+            .Name("tabStrip_#=Id#")
+            .SelectedIndex(0)
+            .Animation(animation => animation.Open(open => open.Fade(FadeDirection.In)))
+            .Items(items =>
+                {
+                    items.Add().Text("Credits").LoadContentFrom("ClientCredits", "ClientProfile", new {clientId = "#=ClientId#"});
+                    items.Add().Text("Passport").LoadContentFrom("PassportView", "ClientProfile", new { clientId = "#=ClientId#" });
+            })
+            .ToClientTemplate())
+    @*<div>test</div>*@
+</script>

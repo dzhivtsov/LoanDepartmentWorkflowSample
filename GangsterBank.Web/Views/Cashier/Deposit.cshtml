@@ -1,0 +1,11 @@
+﻿@{ Layout = null; }
+
+@model GangsterBank.Web.Models.Cashier.OperationModel
+           
+@using (Ajax.BeginForm("Deposit", "Cashier", new AjaxOptions{OnComplete = "onOperationCompelteHanlder" }))
+{
+    <span>Please enter amount to deposit</span>
+    @Html.EditorFor(model => model.Amount)
+    @Html.HiddenFor(model => model.ClientId)
+    @Html.Kendo().Button().Name("depositButton").Content("Deposit")
+}

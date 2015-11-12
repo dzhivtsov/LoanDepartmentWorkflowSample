@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "Lending Departament Head";
+}
+
+<h2>Lending Departament Head</h2>
+
+@(Html.Kendo().TabStrip().Name("Actions")
+    .Items(
+    items =>
+    {
+        items.Add().Text("Review Credits").LoadContentFrom("ReadyForReviewCredits", "LendingDepartamentHead").Selected(true);
+        items.Add().Text("Draft Credits").LoadContentFrom("DraftCredits", "LendingDepartamentHead");
+        items.Add().Text("Active Credits").LoadContentFrom("ActiveCredits", "LendingDepartamentHead");
+        items.Add().Text("Archive Credits").LoadContentFrom("ArchiveCredits", "LendingDepartamentHead");
+        items.Add().Text("Create Credit").LoadContentFrom("CreateCredit", "Credit");
+        items.Add().Text("Approval Requests").LoadContentFrom("ApprovalRequests", "Credit");
+        items.Add().Text("Clients").LoadContentFrom("ApprovedClients", "Clients");
+    }
+))
+
+@Html.Kendo().Window().Name("CreditWindow").Draggable(true).Visible(false).Events(x => x.Refresh("onRefreshKendoWindow"))
+
+<script type="text/javascript">
+    function sendToDraftLoanEventHandler(e, d) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        $.post('@(Url.Action("DraftCredit", "Credit"))', { creditId: dataItem.Id }, function (data) {
+            if (data) {
+                refreshKendoGrid("#draftCredits");
+                refreshKendoGrid($(e.delegateTarget));
+                alert("Credit was successfully sent to draft");
+            }
+        });
+    }
+
+    function viewLoanEventHandler(e) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        openKendoWindow({
+            selector: "#CreditViewWindow",
+            url: '@(Url.Action("ViewCredit", "Credit"))',
+            data: {
+                creditId: dataItem.Id
+            },
+            title: "View Credit",
+            width: 700
+        });
+    }
+
+    function sendToReviewLoanEventHandler(e, d) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        $.post('@(Url.Action("SendToReview", "Credit"))', { creditId: dataItem.Id }, function (data) {
+            if (data) {
+                refreshKendoGrid($(e.delegateTarget));
+                refreshKendoGrid("#reviewCredits");
+                alert("Credit was successfully sent to draft");
+            }
+        });
+    }
+
+    function archiveLoanEventHandler(e, d) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        $.post('@(Url.Action("ArchiveCredit", "Credit"))', { creditId: dataItem.Id }, function (data) {
+            if (data) {
+                refreshKendoGrid("#archiveCreditsGrid");
+                refreshKendoGrid($(e.delegateTarget));
+                alert("Credit was successfully archived");
+            }
+        });
+    }
+
+    function editLoanEventHandler(e, d) {
+        e.preventDefault();
+        $("#Actions #CreateCreditTabStrip").closest(".k-content").html('');
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        openKendoWindow({
+            selector: "#CreditWindow",
+            url: '@(Url.Action("EditCredit", "Credit"))',
+            data: {
+                creditId: dataItem.Id
+            },
+            title: "Edit Credit",
+        });
+    }
+
+    function approveLoanEventHandler(e, d) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        $.post('@(Url.Action("ApproveCredit", "Credit"))', { creditId: dataItem.Id }, function (data) {
+            if (data) {
+                refreshKendoGrid($(e.delegateTarget));
+                refreshKendoGrid("#activeCredits");
+                alert("Credit was successfully approved");
+            }
+        });
+    }
+</script>

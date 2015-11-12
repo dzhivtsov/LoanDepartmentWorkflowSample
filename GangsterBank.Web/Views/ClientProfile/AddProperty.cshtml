@@ -1,0 +1,26 @@
+﻿@model GangsterBank.Web.Models.ClientProfile.PropertyViewModel
+@{
+    Layout = null;
+}
+@using (Ajax.BeginForm("AddProperty", "ClientProfile", new AjaxOptions
+                                                           {
+                                                               HttpMethod = "POST",
+                                                               InsertionMode = InsertionMode.Replace,
+                                                               UpdateTargetId = "AddPropertyWindow",
+                                                               OnSuccess = "onSuccessHandler"
+                                                           }))
+{
+    @Html.EditorForModel()
+    <input type="submit" value="Save" class="btn btn-success" />
+}
+
+<script>
+    function onSuccessHandler(response) {
+        if (typeof response == "boolean") {
+            if (response) {
+                closeKendoWindow($("#AddPropertyWindow"));
+                refreshKendoGrid($("#ClientProperties"));
+            }
+        }
+    }
+</script>

@@ -1,0 +1,46 @@
+﻿@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+    function depositEventHandler(e, d) {
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        openKendoWindow({
+            selector: "#Operations",
+            data: {
+                clientId: dataItem.ClientId
+            },
+            url: '@(Url.Action("Deposit", "Cashier"))',
+            title: "Deposit"
+        });
+    }
+
+    function withdrawEventHandler(e, d) {
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        openKendoWindow({
+            selector: "#Operations",
+            data: {
+                clientId: dataItem.ClientId
+            },
+            url: '@(Url.Action("Withdraw", "Cashier"))',
+            title: "Withdraw"
+        });
+    }
+
+</script>
+
+@using GangsterBank.Web.Models.Cashier
+@(Html.Kendo().Grid<ClientPaymentViewModel>().Name("payments")
+    .Columns(columns =>
+    {
+        columns.Bound(x => x.ClientFirstName);
+        columns.Bound(x => x.ClientLastName);
+        columns.Bound(x => x.Founds);
+        columns.Command(x => x.Custom("Deposit").Click("depositEventHandler"));
+        columns.Command(x => x.Custom("Withdraw").Click("withdrawEventHandler"));
+    })
+        .DataSource(datasource => datasource.Ajax().Read("GetPayments", "Cashier"))
+    .Pageable(paging => paging.PageSizes(true).Refresh(true))
+)
+
+@Html.Kendo().Window().Name("Operations").Draggable(true).Visible(false).Events(x => x.Refresh("onRefreshKendoWindow"))

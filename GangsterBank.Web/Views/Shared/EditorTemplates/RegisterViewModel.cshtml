@@ -1,0 +1,18 @@
+﻿@model GangsterBank.Models.RegisterViewModel
+
+
+<div class="form-group">
+    @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.UserName)
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Password)
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.ConfirmPassword)
+</div>

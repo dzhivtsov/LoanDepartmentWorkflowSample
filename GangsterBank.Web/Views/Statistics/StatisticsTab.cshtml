@@ -1,0 +1,16 @@
+﻿@{ Layout = null; }
+
+@(Html.Kendo().TabStrip().Name("Statistics")
+    .Items(
+    items =>
+    {
+        items.Add().Text("Summary").LoadContentFrom("SummaryLoanProductStatistics", "Statistics").Selected(true);
+        items.Add().Text("Taken Loan Payments").LoadContentFrom("TakenLoanPaymentStatistics", "Statistics");
+        items.Add().Text("Possible Payments").LoadContentFrom("PossiblePaymentsStatistics", "Statistics");
+        items.Add().Text("Debtors").LoadContentFrom("Debtors", "Statistics");
+    }
+))
+
+<script type="text/javascript">
+    
+</script>

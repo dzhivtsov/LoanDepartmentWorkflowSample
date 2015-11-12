@@ -1,0 +1,71 @@
+﻿@model int
+
+@{
+    ViewBag.Title = "Client Profile";
+}
+
+<div class="row">
+    <div class="col-sm-2">
+        @{Html.RenderAction("Menu", new { clientId = Model});}
+    </div>
+
+    <div class="col-sm-10">
+        @{ this.Html.RenderAction("Funds", "ClientProfile", new { clientId = this.Model }); }
+        @(Html.Kendo().TabStrip().Name("Actions")
+              .Items(
+                  items =>
+                      {
+                          items.Add().Text("Active Credits").LoadContentFrom("ClientCredits", "ClientProfile", new {clientId = Model});
+                          items.Add().Text("Available Credits").LoadContentFrom("AvailableCredits", "Credit", new { clientId = Model });
+                          items.Add().Text("Credit History").LoadContentFrom("ClientCreditHistory", "ClientProfile", new { clientId = Model });
+                          items.Add().Text("Payment Calendar").LoadContentFrom("PaymentCalendar", "ClientProfile", new { clientId = Model });
+                          items.Add().Text("Payments").LoadContentFrom("Payments", "ClientProfile", new { clientId = Model });
+                          items.Add().Text("Credit Calculator").LoadContentFrom("CreditCalculator", "Credit");
+                      }
+              ).SelectedIndex(ViewBag.SelectedIndex))
+
+        @Html.Kendo().Window().Name("TakeCreditWindow").Draggable(true).Visible(false).Events(x => x.Refresh("onRefreshKendoWindow"))
+        @Html.Kendo().Window().Name("CalculateCreditWindow").Draggable(true).Visible(false).Events(x => x.Refresh("onRefreshKendoWindow"))
+        @Html.Hidden("clientId", Model)
+
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        function getClientId() {
+            return parseInt($("#clientId").val());
+        }
+
+        function takeLoanEventHandler(e) {
+            e.preventDefault();
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            openKendoWindow({
+                width: 400,
+                selector: "#TakeCreditWindow",
+                url: '@(Url.Action("TakeCredit", "Credit"))',
+                data: {
+                    creditProductName: dataItem.Name,
+                    creditProductId: dataItem.Id,
+                    clientId: getClientId()
+                },
+                title: "Take Credit"
+            });
+        }
+
+        function calculateLoanEventHandler(e) {
+            e.preventDefault();
+            $("#Actions").find("#availableLoanProductsForCalculate").closest(".k-content").html('');
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            openKendoWindow({
+                selector: "#CalculateCreditWindow",
+                width: 900,
+                url: '@(Url.Action("ConcreteCreditCalculator", "Credit"))',
+                data: {
+                    loanProductId: dataItem.Id,
+                },
+                title: "Calculate Credit"
+            });
+        }
+    </script>
+}

@@ -1,0 +1,79 @@
+﻿@using GangsterBank.Domain.Entities.Credits
+@using GangsterBank.Web.Models.ClientProfile
+@model int
+<div class="row">
+    <div class="col-sm-2">
+        @{Html.RenderAction("Menu", new { clientId = Model });}
+    </div>
+
+    <div class="col-sm-10">
+        @(Html.Kendo().Grid<PropertyViewModel>().Name("ClientProperties")
+                  .Columns(columns =>
+                      {
+                          columns.Bound(x => x.Description);
+                          columns.Bound(x => x.Cost);
+                          columns.Command(command =>
+                          {
+                              command.Custom("Edit").Click("editPropertyEventHandler");
+                              command.Custom("Remove").Click("removePropertyEventHandler");
+                          }).Width(160);
+
+                      })
+                  .DataSource(dataSource =>
+                      dataSource.Ajax().Read(read =>
+                          read.Action("GetClientProperties", "ClientProfile", new { clientId = Model })))
+                  .Pageable(pages => pages.Refresh(true).PageSizes(true))
+                  .Sortable()
+                  .Filterable()
+        )
+
+        @Html.Kendo().Window().Name("AddPropertyWindow").Draggable(true).Visible(false).Events(x => x.Refresh("onRefreshKendoWindow"))
+        @Html.Hidden("clientId", Model)
+        <br />
+        @(Html.Kendo().Button()
+                      .Name("addProperty")
+                      .Content("Add")
+                      .Tag("button"))
+    </div>
+</div>
+
+<script>
+    function getClientId() {
+        return parseInt($("#clientId").val());
+    }
+
+    $("#addProperty").on("click", function () {
+        openKendoWindow({
+            selector: "#AddPropertyWindow",
+            url: '@(Url.Action("AddProperty", "ClientProfile"))',
+            title: "Add property"
+        });
+    });
+    function editPropertyEventHandler(e) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        openKendoWindow({
+            selector: "#AddPropertyWindow",
+            url: '@(Url.Action("AddProperty", "ClientProfile"))',
+            data: {
+                clientId: getClientId(),
+                propertyId: dataItem.PropertyId,
+            },
+            title: "Add property"
+        });
+    }
+    function removePropertyEventHandler(e) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        $.ajax({
+            url: '@Url.Action("RemProperty")',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ propertyId: dataItem.PropertyId }),
+        }).done(function (data) {
+            if (typeof data == "boolean" && data) {
+                refreshKendoGrid($("#ClientProperties"));
+            }
+        });
+    }
+</script>

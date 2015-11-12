@@ -1,0 +1,27 @@
+﻿@{
+    Layout = null;
+}
+@model GangsterBank.Web.Models.Credit.LoanProductViewModel
+
+
+<script type="text/javascript">
+    function newCreditSuccessEventHandler(response) {
+        if (response === true) {
+            refreshKendoGrid("#draftCredits");
+            var $actions = $("#Actions"),
+                $createTab = $actions.find("a.k-link:contains('Create Credit')").closest("li"),
+                $draftTab = $actions.find("a.k-link:contains('Draft Credits')").closest("li"),
+                tabData = $actions.data("kendoTabStrip");
+            tabData.select($draftTab);
+            tabData.reload($createTab);
+            closeKendoWindow($("#CreditWindow"));
+        } else {
+            $('#form0').html(response);
+        }
+    }
+</script>
+
+@using (Ajax.BeginForm("CreateCredit", "Credit", new AjaxOptions{OnSuccess = "newCreditSuccessEventHandler"}))
+{
+    @Html.Partial("CreateCreditFields")
+}

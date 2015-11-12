@@ -1,0 +1,9 @@
+﻿@model GangsterBank.Web.Models.Credit.CalculateCredit.ConcreteCreditCalculatorModel
+@{
+    Layout = null;
+}
+
+<div>
+    @Model.LoanProductName
+</div>
+@{Html.RenderAction("GetCreditCalculatorCreditData", "Credit", new { loanProductId = Model.LoanProductId });}

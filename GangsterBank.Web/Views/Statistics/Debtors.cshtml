@@ -1,0 +1,16 @@
+﻿@{
+    Layout = null;
+}
+
+@using GangsterBank.Web.Models.Statistics
+@(Html.Kendo().Grid<DebtorViewModel>().Name("deptorsList")
+    .Columns(columns =>
+    {
+        columns.Bound(x => x.FirstName);
+        columns.Bound(x => x.LastName);
+        columns.Bound(x => x.LoanProductName);
+        columns.Bound(x => x.Debt);
+    })
+    .DataSource(datasource => datasource.Ajax().Read("GetDebtors", "Statistics"))
+    .Pageable(paging => paging.PageSizes(true).Refresh(true))
+)

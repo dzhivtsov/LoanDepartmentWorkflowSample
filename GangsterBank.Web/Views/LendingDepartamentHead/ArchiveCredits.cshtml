@@ -1,0 +1,20 @@
+﻿@{
+    Layout = null;
+}
+
+@using GangsterBank.Domain.Entities.Credits
+@(Html.Kendo().Grid<LoanProduct>().Name("archiveCreditsGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(x => x.Name);
+        columns.Bound(x => x.MinAmount);
+        columns.Bound(x => x.MaxAmount);
+        columns.Bound(x => x.MinPeriodInMonth).HeaderTemplate("Min Time");
+        columns.Bound(x => x.MaxPeriodInMonth).HeaderTemplate("Max Time");
+        columns.Bound(x => x.Percentage).HeaderTemplate("%");
+    })
+    .DataSource(datasource => datasource.Ajax().Read("GetArchiveCredits", "Credit"))
+    .Filterable()
+    .Sortable()
+    .Pageable(paging => paging.PageSizes(true).Refresh(true))
+)

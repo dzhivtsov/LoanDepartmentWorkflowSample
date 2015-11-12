@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GangsterBank - In Money We Trust</title>
+    <script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/kendo")
+</head>
+    <body>
+        <img src="@Url.Content("~/Content/img/smoke.png")" class="backImg" alt="" />
+        <img src="@Url.Content("~/Content/img/girl.png")" class="backLeftImg" alt="" />
+        <div class="navbar navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="@Url.Action("Index","Home")">
+                        <img src="@Url.Content("~/Content/img/logo.png")" style="width:100px;" />
+                    </a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            @RenderBody()
+        </div>
+        <div class="container">
+            @Html.Partial("Footer")
+        </div>
+        @*@Scripts.Render("~/bundles/jquery")*@
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/kendo")
+        @Scripts.Render("~/Content/siteJs")
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

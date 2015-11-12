@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+}
+
+@using GangsterBank.Domain.Entities.Clients
+@using GangsterBank.Web.Models.Clients
+
+<script type="text/javascript">
+    function goToClientProfileEventHandler(e) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        window.top.location.href = '@(Url.Action("Index", "ClientProfile"))' + "?clientId=" + dataItem.Id;
+    }
+</script>
+
+@(Html.Kendo().Grid<ConfirmedClientViewModel>().Name("ConfirmedClients")
+    .Columns(columns =>
+        {
+            columns.Bound(x => x.FirstName);
+            columns.Bound(x => x.LastName);
+            columns.Bound(x => x.PassportNumber);
+            columns.Bound(x => x.PersonalNumber);
+            columns.Command(x => x.Custom("Profile page").Click("goToClientProfileEventHandler"));
+    })
+    .DataSource(datasource => datasource.Ajax().Read("GetApprovedClients", "Clients"))
+    .Filterable()
+    .Sortable()
+    .Pageable(paging => paging.PageSizes(true).Refresh(true))
+)
+

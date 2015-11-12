@@ -1,0 +1,38 @@
+﻿@using GangsterBank.Web.Models.Operator
+@model IEnumerable<UnconfirmedClientViewModel>
+
+@{
+    Layout = null;
+}
+<script>
+    function confirmClient(e, d) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        $.post('@(Url.Action("ConfirmClient"))', { clientId: dataItem.ClientId }).success(function () {
+            alert('Client has been confirmed!');
+            refreshKendoGrid("#unconfirmedClients");
+            refreshKendoGrid("#ConfirmedClients");
+        });
+    }
+    function goToClientProfileEventHandler(e) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        window.top.location.href = '@(Url.Action("Index", "ClientProfile"))' + "?clientId=" + dataItem.Id;
+    }
+</script>
+@(Html.Kendo().Grid<UnconfirmedClientViewModel>().Name("unconfirmedClients")
+    .Columns(columns =>
+    {
+        columns.Bound(x => x.Name);
+        columns.Bound(x => x.BirthDate);
+        columns.Bound(x => x.Passport);
+        columns.Bound(x => x.Employment);
+        columns.Bound(x => x.PhoneNumber);
+        columns.Bound(x => x.RegistrationAddress).Title("Address");
+        columns.Command(x => x.Custom("Confirm").Click("confirmClient"));
+        columns.Command(x => x.Custom("Profile page").Click("goToClientProfileEventHandler"));
+        
+    })
+            .DataSource(datasource => datasource.Ajax().Read("GetUnconfirmedClients", "Operator"))
+    .Pageable(paging => paging.PageSizes(true).Refresh(true))
+)

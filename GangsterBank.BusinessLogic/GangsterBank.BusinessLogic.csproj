@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2C751527-084B-4745-A077-56946BFC726A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GangsterBank.BusinessLogic</RootNamespace>
+    <AssemblyName>GangsterBank.BusinessLogic</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsRunCodeAnalysis>True</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>False</CodeContractsArithmeticObligations>
+    <CodeContractsEnumObligations>False</CodeContractsEnumObligations>
+    <CodeContractsRedundantAssumptions>False</CodeContractsRedundantAssumptions>
+    <CodeContractsMissingPublicRequiresAsWarnings>True</CodeContractsMissingPublicRequiresAsWarnings>
+    <CodeContractsInferRequires>True</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestRequires>True</CodeContractsSuggestRequires>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsSQLServerOption />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
+    <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>%28none%29</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.1.1.0-alpha1-131126\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.1.1.0-alpha1-131126\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Accounts\PaymentService.cs" />
+    <Compile Include="Clients\ClientProfileService.cs" />
+    <Compile Include="Clients\ClientsService.cs" />
+    <Compile Include="Clients\ContactsService.cs" />
+    <Compile Include="Clients\PersonalDetailsService.cs" />
+    <Compile Include="Credits\CreditManager.cs" />
+    <Compile Include="Credits\CreditService.cs" />
+    <Compile Include="Credits\LoanRequestsService.cs" />
+    <Compile Include="Credits\RequestPrerequisiteRules\CompositeRequestPrerequisiteRule.cs" />
+    <Compile Include="Credits\RequestPrerequisiteRules\EmploymentTermRequestPrerequisiteRule.cs" />
+    <Compile Include="Credits\RequestPrerequisiteRules\SalaryRequestPrerequisiteRule.cs" />
+    <Compile Include="Credits\RequestPrerequisiteRules\AmountRangeRequestPrerequisiteRule.cs" />
+    <Compile Include="Credits\RequestPrerequisiteRules\TermRangeRequestPrerequisiteRule.cs" />
+    <Compile Include="EmailTemplates\EmailTemplatesService.cs" />
+    <Compile Include="Info\CitiesService.cs" />
+    <Compile Include="Info\CountriesService.cs" />
+    <Compile Include="Mail\MailService.cs" />
+    <Compile Include="Membership\UserService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Statistics\StatisticContext.cs" />
+    <Compile Include="Statistics\StatisticsManager.cs" />
+    <Compile Include="Tasks\Daily\CalculateFineTask.cs" />
+    <Compile Include="Tasks\Daily\DailyTaskManager.cs" />
+    <Compile Include="Tasks\Daily\PayLoanPaymentsTask.cs" />
+    <Compile Include="Tasks\Daily\SendPaymentNotification.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GangsterBank.BusinessLogic.Contracts\GangsterBank.BusinessLogic.Contracts.csproj">
+      <Project>{BC56EED6-5113-4414-AEAB-DDC988134CC7}</Project>
+      <Name>GangsterBank.BusinessLogic.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GangsterBank.Core\GangsterBank.Core.csproj">
+      <Project>{B135BB92-739D-42DE-9FA6-46BD5B9BD94F}</Project>
+      <Name>GangsterBank.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GangsterBank.DataAccess.Contracts\GangsterBank.DataAccess.Contracts.csproj">
+      <Project>{B3466BFA-F519-4B91-B029-196D81914895}</Project>
+      <Name>GangsterBank.DataAccess.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GangsterBank.Domain\GangsterBank.Domain.csproj">
+      <Project>{134DFB66-41E6-4FB4-A991-0330EEAD9BAD}</Project>
+      <Name>GangsterBank.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

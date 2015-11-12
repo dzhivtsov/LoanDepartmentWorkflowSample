@@ -1,0 +1,65 @@
+﻿@{
+    Layout = null;
+}
+@model GangsterBank.Web.Models.Credit.TakeCreditViewModel
+           
+<script type="text/javascript">
+    function takeCreditFormSuccessSubmitHandler(data) {
+        if (data == "" || data == "true") {
+        } else {
+            alert("Your request rejected because " + data);
+        }
+        closeKendoWindow($("#TakeCreditWindow"));
+        refreshKendoGrid("#ClientCredits");
+    }
+
+    function takeCreditFormFailureSubmitHandler(data) {
+        alert('Your account is not confirmed');
+        closeKendoWindow($("#TakeCreditWindow"));
+        refreshKendoGrid("#ClientCredits");
+    }
+</script>
+
+@using (Ajax.BeginForm("TakeCredit", "Credit", new AjaxOptions { OnSuccess = "takeCreditFormSuccessSubmitHandler(data)", OnFailure = "takeCreditFormFailureSubmitHandler();" }))
+{
+    <br/>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 col-sm-5">
+                @Html.LabelFor(model => model.CreditProductName)
+            </div>
+            <div class="col-md-5 col-sm-5">
+                @Model.CreditProductName
+            </div>
+        </div>
+        
+        
+
+        <div class="row">
+            <div class="col-md-5 col-sm-5">
+                @Html.LabelFor(model => model.Sum)
+            </div>
+            <div class="col-md-5 col-sm-5">
+                @Html.Kendo().NumericTextBoxFor(model => model.Sum).Step(100).Min(Model.MinAmount).Max(Model.MaxAmount).Format("c0").Decimals(0).Value(Model.MinAmount)
+            </div>
+        </div>
+        
+        <br />
+
+        <div class="row">
+            <div class="col-sm-5">
+                @Html.LabelFor(model => model.PeriodInMonth)
+            </div>
+            <div class="col-sm-5">
+                @Html.Kendo().NumericTextBoxFor(model => model.PeriodInMonth).Min(Model.MinPeriod).Max(Model.MaxPeriod).Format("0").Value(Model.MinPeriod)
+            </div>
+        </div>
+
+        @Html.HiddenFor(model => model.ClientId)
+        @Html.HiddenFor(model => model.CreditProductId)
+        @Html.ValidationSummary()
+
+        <br />
+        @Html.Kendo().Button().Content("Take Credit").Name("takeCreditSubmitButton").HtmlAttributes(new { @style = "margin-left: 35%; margin-bottom:10px;" })
+</div>
+}

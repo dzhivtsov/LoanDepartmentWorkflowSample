@@ -1,0 +1,26 @@
+﻿@model GangsterBank.Web.Models.Credit.CalculateCredit.CreditCalculatorModel
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+    function availableLoanProductsForCalculateSelectHandler(e)
+    {
+        var dataItem = this.dataItem(e.item.index());
+        $.get('@(Url.Action("GetCreditCalculatorCreditData", "Credit"))', { loanProductId: dataItem.Value }, function (data) {
+            if (data) {
+                $("#creditDataPlaceHolder").html(data);
+            }
+        });
+    }
+</script>
+
+<div>
+    @(Html.Kendo().DropDownList().Name("availableLoanProductsForCalculate")
+        .DataTextField("Text").DataValueField("Value").BindTo(Model.LoanProducts).Text("Choose loan product")
+                .Events(events => events.Select("availableLoanProductsForCalculateSelectHandler")).OptionLabel("--Selet Loan Product--"))
+</div>
+
+<div id="creditDataPlaceHolder">
+
+</div>

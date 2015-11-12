@@ -1,0 +1,21 @@
+﻿@model decimal?
+
+@{
+    var minValue = decimal.MinValue;
+    var maxValue = decimal.MaxValue;
+    var attrAdapter = ViewData.ModelMetadata.GetValidators(ViewContext).OfType<RangeAttributeAdapter>().SingleOrDefault();
+    if (attrAdapter != null)
+    {
+        var attr = (System.ComponentModel.DataAnnotations.RangeAttribute)attrAdapter.GetType()
+            .GetProperty("Attribute", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static, null, typeof(System.ComponentModel.DataAnnotations.RangeAttribute), new Type[0], null)
+            .GetValue(attrAdapter, null);
+        minValue = Convert.ToDecimal(attr.Minimum);
+        maxValue = Convert.ToDecimal(attr.Maximum);
+    }
+}
+
+@(Html.Kendo().NumericTextBoxFor(m => m)
+      .Min(minValue)
+      .Max(maxValue)
+      .Format("0")
+)

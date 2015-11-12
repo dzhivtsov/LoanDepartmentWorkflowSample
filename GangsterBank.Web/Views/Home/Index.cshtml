@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Gangster Bank";
+    Layout = "~/Views/Shared/_MainPageLayout.cshtml";
+}
+<div class="row">
+    <img src="@Url.Content("~/Content/img/smoke.png")" class="backImg" alt=""/>
+    <img src="@Url.Content("~/Content/img/girl.png")" class="backLeftImg" alt="" />
+    <div class="col-sm-3">
+        <img src="@Url.Content("~/Content/img/logo.png")" />
+    </div>
+    <div class="col-sm-3 text-center">
+        <a href="@Url.Action("Index","ClientProfile", new {id = 1})">
+            <img src="@Url.Content("~/Content/img/1.png")" alt="" />
+            <h3>Take Your Money</h3>
+        </a>
+    </div>
+    <div class="col-sm-3 text-center">
+        <a href="@Url.Action("Index","ClientProfile", new {id = 3})">
+            <img src="@Url.Content("~/Content/img/2.png")" alt="" />
+            <h3>Payment Time</h3>
+        </a>
+    </div>
+    <div class="col-sm-3 text-center">
+        <a href="@Url.Action("BasicDetails", "ClientProfile")">
+            <img src="@Url.Content("~/Content/img/3.png")" alt="" />
+            <h3>Profile</h3>
+        </a>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <img src="@Url.Content("~/Content/img/Slider.png")" alt="Vito Carleone" class="img-responsive" style="border: 1px solid white;" />
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <div class="yellowLine">
+            <div class="row">
+                <div class="col-xs-4">
+                    <a href="@Url.Action("Login","Account")">
+                        <h4>Login</h4>
+                    </a>
+                </div>
+                <div class="col-xs-4">
+                    <a href="@Url.Action("Register","Account")">
+                        <h4>Register</h4>
+                    </a>
+                </div>
+                <div class="col-xs-4">
+                    <a href="@Url.Action("About","Home")">
+                        <h4>Who we are?</h4>
+                    </a>
+                </div>
+            </div>   
+        </div>
+    </div>
+</div>
+<br />

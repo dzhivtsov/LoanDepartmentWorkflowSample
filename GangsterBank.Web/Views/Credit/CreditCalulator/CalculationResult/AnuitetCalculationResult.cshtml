@@ -1,0 +1,10 @@
+﻿@{
+    Layout = null;
+}
+@model GangsterBank.Web.Models.Credit.CalculateCredit.CalculationResultModel
+
+<span>Monthly payment will be: @Model.MonthlyPayments.First().Payment</span>
+<br/>
+<span>Monthes Count: @Model.MonthlyPayments.Count()</span>
+<br/>
+<span>Total payment: @Model.TotalPayment</span>

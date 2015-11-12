@@ -1,0 +1,18 @@
+﻿@{
+    Layout = null;
+}
+@using System.Globalization
+@model GangsterBank.Web.Models.Credit.CalculateCredit.CalculationResultModel
+
+<span>Monthly payments</span>
+<br/>
+<br />
+<br />
+@(Html.Kendo().Grid(Model.MonthlyPayments).Name("anuitetCalculations")
+.Columns(columns =>
+    {
+        columns.Bound(x => x.Month);
+        columns.Bound(x => x.Payment);
+    }))
+<br />
+<span>Total payment: @Model.TotalPayment</span>

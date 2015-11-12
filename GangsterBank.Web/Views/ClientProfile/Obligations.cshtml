@@ -1,0 +1,86 @@
+﻿@using GangsterBank.Web.Models.ClientProfile
+@model int
+
+<div class="row">
+    <div class="col-sm-2">
+        @{Html.RenderAction("Menu", new { clientId = Model });}
+    </div>
+
+    <div class="col-sm-10">
+        @(Html.Kendo().Grid<ObligationViewModel>().Name("ClientObligations")
+              .Columns(columns =>
+                  {
+                      columns.Bound(x => x.CompanyName);
+                      columns.Bound(x => x.OutstandingAmount);
+                      columns.Bound(x => x.MonthlyPayments);
+                      columns.Bound(x => x.ExpirationDate);
+                      columns.Bound(x => x.DelayAmount);
+                      columns.Command(command =>
+                          {
+                              command.Custom("Edit").Click("editObligationEventHandler");
+                              command.Custom("Remove").Click("removeObligationEventHandler");
+                          }).Width(160);
+
+                  })
+              .DataSource(dataSource =>
+                          dataSource.Ajax().Read(read =>
+                                                 read.Action("ClientObligations", "ClientProfile", new { clientId = Model })))
+              .Pageable(pages => pages.Refresh(true).PageSizes(true))
+              .Sortable()
+                      .Filterable()
+              )
+
+        @Html.Kendo().Window().Name("AddObligationWindow").Draggable(true).Visible(false).Events(x => x.Refresh("onRefreshKendoWindow"))
+        @Html.Hidden("clientId", Model)
+        <br />
+        @(Html.Kendo().Button()
+              .Name("addObligation")
+              .Content("Add")
+              .Tag("button"))
+
+    </div>
+</div>
+
+<script>
+    function getClientId() {
+        return parseInt($("#clientId").val());
+    }
+
+    $("#addObligation").on("click", function () {
+        openKendoWindow({
+            selector: "#AddObligationWindow",
+            url: '@(Url.Action("AddObligation", "ClientProfile"))',
+            data: {
+                clientId: getClientId()
+            },
+            title: "Add obligation"
+        });
+    });
+    function editObligationEventHandler(e) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        openKendoWindow({
+            selector: "#AddObligationWindow",
+            url: '@(Url.Action("AddObligation", "ClientProfile"))',
+            data: {
+                clientId: getClientId(),
+                obligationId: dataItem.ObligationId,
+            },
+            title: "Add obligation"
+        });
+    }
+    function removeObligationEventHandler(e) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        $.ajax({
+            url: '@Url.Action("RemObligation", "ClientProfile")',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ obligationId: dataItem.ObligationId }),
+        }).done(function (data) {
+            if (typeof data == "boolean" && data) {
+                refreshKendoGrid($("#ClientObligations"));
+            }
+        });
+    }
+</script>

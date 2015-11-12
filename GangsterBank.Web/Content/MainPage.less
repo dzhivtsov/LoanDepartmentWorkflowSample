@@ -1,0 +1,59 @@
+﻿@colorBackground: #0f0e0e;
+@colorLink: gray;
+@colorLinkHover: #dea703;
+
+body {
+    background-color: @colorBackground;
+
+    .body-content {
+        height: 100%;
+        margin-bottom: 0px;
+    }
+
+    a {
+        color: @colorLink;
+        
+        &:hover{
+            color: @colorLinkHover;
+            text-decoration: underline;
+        }
+    }
+
+    footer > ul {
+        margin-bottom: 10px;
+
+        li {
+            display: inline;
+        }
+    }
+}
+
+.mainPage {
+    text-align: center;
+    height: 100%;
+    display: table;
+    width: 100%;
+
+
+    >div {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .col-md-3 {
+        margin-top: 90px;
+        margin-bottom: 90px;
+    }
+
+    .left-arrow,
+    .right-arrow {
+        font-weight: bold;
+        color: @colorLinkHover;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+.k-scheduler-content .k-event {
+    height: 50px !important;
+}

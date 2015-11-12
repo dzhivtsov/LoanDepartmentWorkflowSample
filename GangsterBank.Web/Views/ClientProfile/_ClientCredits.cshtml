@@ -1,0 +1,15 @@
+﻿@using GangsterBank.Web.Models
+@(Html.Kendo().Grid<ClientCreditModel>().Name("ClientCredits")
+.Columns(
+    columns =>
+        {
+            columns.Bound(x => x.CreditPlanName).Sortable(true).Filterable(true);
+            //columns.Bound(x => x.NextPaymentDate).Format("DD/MM/YYYY").Sortable(true).Filterable(true);
+            columns.Bound(x => x.NextPaymentAmout).Sortable(true).Filterable(true);
+            columns.Bound(x => x.ExpirationDate).Sortable(true).Filterable(true);
+        } 
+).DataSource(datasource => datasource.Ajax().Read("GetClientCredits", "ClientProfile"))
+.Sortable()
+.Filterable()
+.Pageable(paging => paging.PageSizes(true).Refresh(true)))
+

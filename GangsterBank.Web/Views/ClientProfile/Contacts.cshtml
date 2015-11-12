@@ -1,0 +1,29 @@
+﻿@model GangsterBank.Web.Models.ClientProfile.ContactsViewModel
+
+<div class="row">
+    <div class="col-sm-2">
+       @{Html.RenderAction("Menu", new { clientId = Model.ClientId });}
+    </div>
+    <div class="col-sm-10">
+        @using (this.Html.BeginForm())
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.EditorForModel()
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <legend>@Html.DisplayNameFor(model => model.RegistrationAddress)</legend>
+                    @Html.EditorFor(model => model.RegistrationAddress)
+                </div>
+                <div class="col-md-6">
+                    <legend>@Html.DisplayNameFor(model => model.ResidentialAddress)</legend>
+                    @Html.EditorFor(model => model.ResidentialAddress)
+                </div>
+            </div>
+            <br/>
+            @(Html.Kendo().Button().Name("Save").Content("Save").Tag("button"))
+        }
+    </div>
+</div>

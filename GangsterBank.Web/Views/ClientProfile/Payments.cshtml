@@ -1,0 +1,23 @@
+﻿@{
+    Layout = null;
+}
+
+@using GangsterBank.Domain.Entities.Accounts
+@using GangsterBank.Web.Infrastructure
+@using GangsterBank.Web.Infrastructure.Extensions
+@(Html.Kendo().Grid<Payment>().Name("ClientPayments")
+.Columns(
+    columns =>
+    {
+        columns.Bound(x => x.Amount);
+        columns.Bound(x => x.DateTime).HeaderTemplate("Date").Format(Constants.KendoDateTimeFormat);
+        columns.Bound(x => x.Type);
+    }
+            ).DataSource(datasource => datasource.Ajax().Read("PaymentsData", "ClientProfile", new { clientId = ViewBag.ClientId }))
+    .Sortable()
+    .Filterable()
+.Pageable(pages => pages.Refresh(true).PageSizes(true))
+)
+
+
+

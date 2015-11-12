@@ -1,0 +1,69 @@
+﻿@{
+    Layout = null;
+}
+@model GangsterBank.Web.Models.Credit.CalculateCredit.CalculateCreditViewModel
+           
+
+<script type="text/javascript">
+    function creditCalculationResultSuccessEventHandler(data) {
+        if (data) {
+            $("#creditCalculationResultPlaceHolder").html(data);
+        }
+    }
+
+    function textBoxForAmountForCreditDataChengeHandler(e) {
+        $("#creditCalculationCreditData #Amount").data("kendoSlider").value(e.sender._value);
+    }
+
+    function amountSliderForCreditDataChangeHandler(e) {
+        $("#creditCalculationCreditData #TextBoxForAmountCreditData").data("kendoNumericTextBox").value(e.value);
+    }
+</script>
+
+
+
+<div id="creditCalculationCreditData">
+    @using (Ajax.BeginForm("CalculateCredit", "Credit", new AjaxOptions { OnSuccess = "creditCalculationResultSuccessEventHandler" }))
+    {
+        <br />
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 col-sm-2">
+                    @Html.LabelFor(model => model.Monthes)
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    @(Html.Kendo().SliderFor(model => model.Monthes)
+                      .Orientation(SliderOrientation.Horizontal).SmallStep(1).LargeStep(3)
+                      .Max(Model.MaxPeriod).Min(Model.MinPeriod).Value(Model.MinPeriod))
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="row">
+                <div class="col-md-2 col-sm-2">
+                    @Html.LabelFor(model => model.Amount)
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    @(Html.Kendo().SliderFor(model => model.Amount)
+                          .Orientation(SliderOrientation.Horizontal).SmallStep(100).LargeStep(100000)
+                  .Max(Model.MaxAmountD).Min(Model.MinAmountD).Value(Model.MinAmountD).Events(x => x.Change("amountSliderForCreditDataChangeHandler").Slide("amountSliderForCreditDataChangeHandler")))
+                </div>
+                <div class="col-md-2 col-sm-2">
+                    @(Html.Kendo().NumericTextBox().Name("TextBoxForAmountCreditData")
+                        .Step(100).Min(Model.MinAmount).Max(Model.MaxAmount).Format("c0").Decimals(0).Value(Model.MinAmount)
+                        .Events(x => x.Change("textBoxForAmountForCreditDataChengeHandler")))
+                </div>
+            </div>
+            @Html.HiddenFor(model => model.LoanProductId)
+            @Html.HiddenFor(model => model.LoanProductType)
+            <br/><br />
+            @Html.Kendo().Button().Content("Calculate").Name("calculateCreditCalculateButton")
+        </div>
+    }
+</div>
+<br />
+<div id="creditCalculationResultPlaceHolder">
+
+</div>
+
+

@@ -1,0 +1,23 @@
+﻿@{ Layout = null; }
+@model GangsterBank.Web.Models.Clients.UpdateRolesModel
+@using GangsterBank.Domain.Entities.Membership
+@using (Ajax.BeginForm("EditRoles", "Administrator", new AjaxOptions{OnSuccess = "editRolesWindowOnSuccessHandler"}))
+{
+    <div class="container">
+        @foreach (Role it in Enum.GetValues(typeof(Role)))
+        {
+            <div class="row">
+                <div class="col-md-8 col-sm-8">
+                    @Html.Label("Role" + it, Enum.GetName(typeof(Role), it))
+                </div>
+                @{ bool t = Model.Roles.Any(x => x == it); }
+                <div class="col-md-1 col-sm-1">
+                    <input name="Roles" id="Roles" type="radio" @(t ? "checked='checked'" : "") value="@it" />
+                </div>
+            </div>
+        }
+    </div>
+    @Html.HiddenFor(model => model.ClientId)
+    @Html.Kendo().Button().Name("updateEditRoles").Content("Update").HtmlAttributes(new { @style = "margin-left: 40%;" })
+}
+

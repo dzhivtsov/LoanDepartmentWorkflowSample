@@ -1,0 +1,29 @@
+﻿@{
+    Layout = null;
+}
+
+@using GangsterBank.Web.Infrastructure
+@using GangsterBank.Web.Models
+@(Html.Kendo().Grid<ClientCreditModel>().Name("ClientCredits")
+.Columns(
+    columns =>
+        {
+            columns.Bound(x => x.CreditPlanName);
+            columns.Bound(x => x.NextPaymentDate).Format(Constants.KendoDateTimeFormat);
+            columns.Bound(x => x.NextPaymentAmout);
+            columns.Bound(x => x.ExpirationDate).Format(Constants.KendoDateTimeFormat);
+        }
+    ).DataSource(
+        datasource => 
+            datasource
+                .Ajax()
+                .Read("GetClientCredits", "ClientProfile", new { clientId = ViewBag.ClientId }))
+                .Sortable()
+                .Filterable()
+                .ClientDetailTemplateId("clientActiveCreditDetialsTemplate")
+                .Pageable(pages => pages.Refresh(true).PageSizes(true)
+    )
+)
+
+@Html.Partial("CreditGridDescriptionSection", "clientActiveCreditDetialsTemplate")
+

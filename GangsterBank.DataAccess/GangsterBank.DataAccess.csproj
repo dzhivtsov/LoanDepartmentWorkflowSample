@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{87D9B56F-2C46-4455-AA82-19FCFFA3EED3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GangsterBank.DataAccess</RootNamespace>
+    <AssemblyName>GangsterBank.DataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsRunCodeAnalysis>True</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>False</CodeContractsArithmeticObligations>
+    <CodeContractsEnumObligations>False</CodeContractsEnumObligations>
+    <CodeContractsRedundantAssumptions>False</CodeContractsRedundantAssumptions>
+    <CodeContractsMissingPublicRequiresAsWarnings>True</CodeContractsMissingPublicRequiresAsWarnings>
+    <CodeContractsInferRequires>True</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestRequires>True</CodeContractsSuggestRequires>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsSQLServerOption />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
+    <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>%28none%29</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.1.1.0-alpha1-131126\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.1.1.0-alpha1-131126\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Services" />
+    <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Conventions\DateTime2Convention.cs" />
+    <Compile Include="Extensions\DbSetExtensions.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="GangsterBankContext.cs" />
+    <Compile Include="InitialDataCollections\ClientsInitialCollection.cs" />
+    <Compile Include="InitialDataCollections\LoanProductsInitialCollection.cs" />
+    <Compile Include="Migrations\201311171146507_InitialMigration.cs" />
+    <Compile Include="Migrations\201311171146507_InitialMigration.Designer.cs">
+      <DependentUpon>201311171146507_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201311171202328_ChangeIdentityModelTableNames.cs" />
+    <Compile Include="Migrations\201311171202328_ChangeIdentityModelTableNames.Designer.cs">
+      <DependentUpon>201311171202328_ChangeIdentityModelTableNames.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312021657342_makeBirthdayNullable.cs" />
+    <Compile Include="Migrations\201312021657342_makeBirthdayNullable.Designer.cs">
+      <DependentUpon>201312021657342_makeBirthdayNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312021738187_AddDateTime2Convention.cs" />
+    <Compile Include="Migrations\201312021738187_AddDateTime2Convention.Designer.cs">
+      <DependentUpon>201312021738187_AddDateTime2Convention.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312122051139_AddedNameToLoanProduct.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Migrations\201312122051139_AddedNameToLoanProduct.Designer.cs">
+      <DependentUpon>201312122051139_AddedNameToLoanProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312141648291_MovedAddressesIntoContacts.cs" />
+    <Compile Include="Migrations\201312141648291_MovedAddressesIntoContacts.Designer.cs">
+      <DependentUpon>201312141648291_MovedAddressesIntoContacts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312211527405_RemovedCountryCode.cs" />
+    <Compile Include="Migrations\201312211527405_RemovedCountryCode.Designer.cs">
+      <DependentUpon>201312211527405_RemovedCountryCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312211617437_ExtendedLoanProductEntity.cs" />
+    <Compile Include="Migrations\201312211617437_ExtendedLoanProductEntity.Designer.cs">
+      <DependentUpon>201312211617437_ExtendedLoanProductEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312211640172_ChangedTimeSpanInLoanProductWithMinAndMaxPeriod.cs" />
+    <Compile Include="Migrations\201312211640172_ChangedTimeSpanInLoanProductWithMinAndMaxPeriod.Designer.cs">
+      <DependentUpon>201312211640172_ChangedTimeSpanInLoanProductWithMinAndMaxPeriod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312211728034_ChamgedLoanProducts.cs" />
+    <Compile Include="Migrations\201312211728034_ChamgedLoanProducts.Designer.cs">
+      <DependentUpon>201312211728034_ChamgedLoanProducts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312212300036_MergeMigreation.cs" />
+    <Compile Include="Migrations\201312212300036_MergeMigreation.Designer.cs">
+      <DependentUpon>201312212300036_MergeMigreation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312212301328_Merge1.cs" />
+    <Compile Include="Migrations\201312212301328_Merge1.Designer.cs">
+      <DependentUpon>201312212301328_Merge1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312221458299_AddressCaseNumberMadeNullable.cs" />
+    <Compile Include="Migrations\201312221458299_AddressCaseNumberMadeNullable.Designer.cs">
+      <DependentUpon>201312221458299_AddressCaseNumberMadeNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312221723233_ExtendedTakenLoan.cs" />
+    <Compile Include="Migrations\201312221723233_ExtendedTakenLoan.Designer.cs">
+      <DependentUpon>201312221723233_ExtendedTakenLoan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401020853593_AddedUnemployedColumnToEmploymentDataTable.cs" />
+    <Compile Include="Migrations\201401020853593_AddedUnemployedColumnToEmploymentDataTable.Designer.cs">
+      <DependentUpon>201401020853593_AddedUnemployedColumnToEmploymentDataTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401021705218_AddedLoanProductRequirements.cs" />
+    <Compile Include="Migrations\201401021705218_AddedLoanProductRequirements.Designer.cs">
+      <DependentUpon>201401021705218_AddedLoanProductRequirements.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401032156210_AddedTypeToLoanProduct.cs" />
+    <Compile Include="Migrations\201401032156210_AddedTypeToLoanProduct.Designer.cs">
+      <DependentUpon>201401032156210_AddedTypeToLoanProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401041828279_AddIsDeletedFlagToEntities.cs" />
+    <Compile Include="Migrations\201401041828279_AddIsDeletedFlagToEntities.Designer.cs">
+      <DependentUpon>201401041828279_AddIsDeletedFlagToEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401050845580_AddApproversForLoanRequirements.cs" />
+    <Compile Include="Migrations\201401050845580_AddApproversForLoanRequirements.Designer.cs">
+      <DependentUpon>201401050845580_AddApproversForLoanRequirements.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401050923378_AddedLoanRequest.cs" />
+    <Compile Include="Migrations\201401050923378_AddedLoanRequest.Designer.cs">
+      <DependentUpon>201401050923378_AddedLoanRequest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401052015329_MergeMigration.cs" />
+    <Compile Include="Migrations\201401052015329_MergeMigration.Designer.cs">
+      <DependentUpon>201401052015329_MergeMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401060801478_AddedRolesToLoanRequest.cs" />
+    <Compile Include="Migrations\201401060801478_AddedRolesToLoanRequest.Designer.cs">
+      <DependentUpon>201401060801478_AddedRolesToLoanRequest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401061838346_AddedLoanPayment.cs" />
+    <Compile Include="Migrations\201401061838346_AddedLoanPayment.Designer.cs">
+      <DependentUpon>201401061838346_AddedLoanPayment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401061910564_AddedTakenLoanStatus.cs" />
+    <Compile Include="Migrations\201401061910564_AddedTakenLoanStatus.Designer.cs">
+      <DependentUpon>201401061910564_AddedTakenLoanStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401061941233_AddedLoanProductDailyFinePercentage.cs" />
+    <Compile Include="Migrations\201401061941233_AddedLoanProductDailyFinePercentage.Designer.cs">
+      <DependentUpon>201401061941233_AddedLoanProductDailyFinePercentage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401062006598_AddedLoanProductAdvancedRepaymentProperties.cs" />
+    <Compile Include="Migrations\201401062006598_AddedLoanProductAdvancedRepaymentProperties.Designer.cs">
+      <DependentUpon>201401062006598_AddedLoanProductAdvancedRepaymentProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401071014175_AddedLoanPayments.cs" />
+    <Compile Include="Migrations\201401071014175_AddedLoanPayments.Designer.cs">
+      <DependentUpon>201401071014175_AddedLoanPayments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401092014334_AddedEmailTempaltes.cs" />
+    <Compile Include="Migrations\201401092014334_AddedEmailTempaltes.Designer.cs">
+      <DependentUpon>201401092014334_AddedEmailTempaltes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\BaseRepository.cs" />
+    <Compile Include="Repositories\CitiesRepository.cs" />
+    <Compile Include="Repositories\ClientsRepository.cs" />
+    <Compile Include="Repositories\ContactsRepository.cs" />
+    <Compile Include="Repositories\CountriesRepository.cs" />
+    <Compile Include="Repositories\EmailTemplatesRepository.cs" />
+    <Compile Include="Repositories\EmploymentDataRepository.cs" />
+    <Compile Include="Repositories\LoanPaymentsRepository.cs" />
+    <Compile Include="Repositories\LoanProductsRepository.cs" />
+    <Compile Include="Repositories\LoanRequestsRepository.cs" />
+    <Compile Include="Repositories\ObligationRepository.cs" />
+    <Compile Include="Repositories\PassportDataRepository.cs" />
+    <Compile Include="Repositories\PersonalDetailsRepository.cs" />
+    <Compile Include="Repositories\PropertyRepository.cs" />
+    <Compile Include="Repositories\RolesRepository.cs" />
+    <Compile Include="Repositories\UserEntityStore.cs" />
+    <Compile Include="UnitsOfWork\GangsterBankUnitOfWork.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GangsterBank.Core\GangsterBank.Core.csproj">
+      <Project>{B135BB92-739D-42DE-9FA6-46BD5B9BD94F}</Project>
+      <Name>GangsterBank.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GangsterBank.DataAccess.Contracts\GangsterBank.DataAccess.Contracts.csproj">
+      <Project>{B3466BFA-F519-4B91-B029-196D81914895}</Project>
+      <Name>GangsterBank.DataAccess.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GangsterBank.Domain\GangsterBank.Domain.csproj">
+      <Project>{134DFB66-41E6-4FB4-A991-0330EEAD9BAD}</Project>
+      <Name>GangsterBank.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201311171146507_InitialMigration.resx">
+      <DependentUpon>201311171146507_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201311171202328_ChangeIdentityModelTableNames.resx">
+      <DependentUpon>201311171202328_ChangeIdentityModelTableNames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312021657342_makeBirthdayNullable.resx">
+      <DependentUpon>201312021657342_makeBirthdayNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312021738187_AddDateTime2Convention.resx">
+      <DependentUpon>201312021738187_AddDateTime2Convention.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312122051139_AddedNameToLoanProduct.resx">
+      <DependentUpon>201312122051139_AddedNameToLoanProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312141648291_MovedAddressesIntoContacts.resx">
+      <DependentUpon>201312141648291_MovedAddressesIntoContacts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312211527405_RemovedCountryCode.resx">
+      <DependentUpon>201312211527405_RemovedCountryCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312211617437_ExtendedLoanProductEntity.resx">
+      <DependentUpon>201312211617437_ExtendedLoanProductEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312211640172_ChangedTimeSpanInLoanProductWithMinAndMaxPeriod.resx">
+      <DependentUpon>201312211640172_ChangedTimeSpanInLoanProductWithMinAndMaxPeriod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312211728034_ChamgedLoanProducts.resx">
+      <DependentUpon>201312211728034_ChamgedLoanProducts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312212300036_MergeMigreation.resx">
+      <DependentUpon>201312212300036_MergeMigreation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312212301328_Merge1.resx">
+      <DependentUpon>201312212301328_Merge1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312221458299_AddressCaseNumberMadeNullable.resx">
+      <DependentUpon>201312221458299_AddressCaseNumberMadeNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312221723233_ExtendedTakenLoan.resx">
+      <DependentUpon>201312221723233_ExtendedTakenLoan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401020853593_AddedUnemployedColumnToEmploymentDataTable.resx">
+      <DependentUpon>201401020853593_AddedUnemployedColumnToEmploymentDataTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401021705218_AddedLoanProductRequirements.resx">
+      <DependentUpon>201401021705218_AddedLoanProductRequirements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401032156210_AddedTypeToLoanProduct.resx">
+      <DependentUpon>201401032156210_AddedTypeToLoanProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401041828279_AddIsDeletedFlagToEntities.resx">
+      <DependentUpon>201401041828279_AddIsDeletedFlagToEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401050845580_AddApproversForLoanRequirements.resx">
+      <DependentUpon>201401050845580_AddApproversForLoanRequirements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401050923378_AddedLoanRequest.resx">
+      <DependentUpon>201401050923378_AddedLoanRequest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401052015329_MergeMigration.resx">
+      <DependentUpon>201401052015329_MergeMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401060801478_AddedRolesToLoanRequest.resx">
+      <DependentUpon>201401060801478_AddedRolesToLoanRequest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401061838346_AddedLoanPayment.resx">
+      <DependentUpon>201401061838346_AddedLoanPayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401061910564_AddedTakenLoanStatus.resx">
+      <DependentUpon>201401061910564_AddedTakenLoanStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401061941233_AddedLoanProductDailyFinePercentage.resx">
+      <DependentUpon>201401061941233_AddedLoanProductDailyFinePercentage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401062006598_AddedLoanProductAdvancedRepaymentProperties.resx">
+      <DependentUpon>201401062006598_AddedLoanProductAdvancedRepaymentProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401071014175_AddedLoanPayments.resx">
+      <DependentUpon>201401071014175_AddedLoanPayments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401092014334_AddedEmailTempaltes.resx">
+      <DependentUpon>201401092014334_AddedEmailTempaltes.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

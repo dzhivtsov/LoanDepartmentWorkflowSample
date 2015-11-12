@@ -1,0 +1,43 @@
+﻿@using System.Activities.Statements
+@model GangsterBank.Web.Models.ClientProfile.PassportViewModel
+<div class="row">
+    <div class="col-sm-2">
+        @{Html.RenderAction("Menu", new { clientId = Model.ClientId });}
+    </div>
+
+    <div class="col-sm-10">
+        @using (this.Html.BeginForm())
+        {
+            @Html.EditorForModel()
+            @(Html.Kendo().Upload().Name("File").Multiple(false).Events(events => events.Upload("limitUploadFileSize").Select("limitUploadFileSize")))
+            @Html.ValidationMessageFor(model => model.File)
+            <br/>
+            if (Model.HasImage)
+             {
+                 <img src="@Url.Action("PassportDigitalCopy", "ClientProfile", new { @clientId = Model.ClientId })" class="img-responsive" />
+                 <br/>
+             }
+            @(Html.Kendo().Button().Name("Save").Tag("button").Content("Save"))
+        }
+    </div>
+</div>
+<script>
+    function limitUploadFileSize(e) {
+        var bytesPerMb = 1048576;
+        var fileExtensions = [".jpg", ".jpeg", ".png", ".bmp"];
+        var files = e.files;
+        $.each(files, function (i, file) {
+
+            if (file.size && (file.size > 10 * bytesPerMb)) {
+                alert("File size exceeds the 10MB limit");
+                e.preventDefault();
+                return false;
+            }
+            if (file.extension && fileExtensions.indexOf(file.extension) === -1) {
+                alert("File can be an image only (jpg, jpeg, png or bmp)");
+                e.preventDefault();
+                return false;
+            }
+        });
+    }
+</script>

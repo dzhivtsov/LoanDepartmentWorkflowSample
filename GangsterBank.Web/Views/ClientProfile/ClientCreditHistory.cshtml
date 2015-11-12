@@ -1,0 +1,17 @@
+﻿@{
+    Layout = null;
+}
+
+@using GangsterBank.Web.Models
+@(Html.Kendo().Grid<ClientCreditHistoryModel>().Name("ClientCreditHistory")
+.Columns(
+    columns =>
+    {
+        columns.Bound(x => x.CreditPlanName);
+        columns.Bound(x => x.CompletedOnTime);
+    }
+    ).DataSource(datasource => datasource.Ajax().Read("GetClientCreditHistory", "ClientProfile", new { clientId = ViewBag.ClientId }))
+    .Sortable().Filterable()
+.Pageable(pages => pages.Refresh(true).PageSizes(true))
+)
+

@@ -1,0 +1,18 @@
+﻿@{
+    Layout = null;
+}
+
+@using GangsterBank.Web.Models.Clients
+@(Html.Kendo().Grid<ClientViewModel>().Name("clientManagmentList")
+    .Columns(columns =>
+        {
+            columns.Bound(x => x.FirstName);
+            columns.Bound(x => x.LastName);
+            columns.Bound(x => x.Roles).Width("30%").Sortable(false).Filterable(false);
+            columns.Command(x => x.Custom("Edit Roles").Click("editRolesClickEventHandlers")).Width(120);
+            columns.Command(x => x.Custom("Profile page").Click("goToClientProfileEventHandler"));
+        })
+    .DataSource(datasource => datasource.Ajax().Read("UsersData", "Administrator"))
+    .Sortable().Filterable()
+    .Pageable(paging => paging.PageSizes(true).Refresh(true))
+)

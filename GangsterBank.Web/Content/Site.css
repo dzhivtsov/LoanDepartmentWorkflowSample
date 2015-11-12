@@ -1,0 +1,115 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+footer {
+    text-align: center;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+#creditCalculationCreditData .k-slider-horizontal {
+    width: 450px !important;
+}
+
+    #creditCalculationCreditData .k-slider-horizontal .k-slider-buttons .k-slider-track {
+        width: 380px !important;
+    }
+
+div.yellowLine {
+    height: 50px;
+    text-align: center;
+    background: #8d8208;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzhkODIwOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjElIiBzdG9wLWNvbG9yPSIjZTlkODBiIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iMSUiIHN0b3AtY29sb3I9IiNmZWVhMGIiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI5OSUiIHN0b3AtY29sb3I9IiNmZWJiMDAiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjYTM3ODAyIiBzdG9wLW9wYWNpdHk9IjEiLz4KICA8L2xpbmVhckdyYWRpZW50PgogIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InVybCgjZ3JhZC11Y2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==);
+    background: -moz-linear-gradient(top, #8d8208 0%, #e9d80b 1%, #feea0b 1%, #febb00 99%, #a37802 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8d8208), color-stop(1%,#e9d80b), color-stop(1%,#feea0b), color-stop(99%,#febb00), color-stop(100%,#a37802));
+    background: -webkit-linear-gradient(top, #8d8208 0%,#e9d80b 1%,#feea0b 1%,#febb00 99%,#a37802 100%);
+    background: -o-linear-gradient(top, #8d8208 0%,#e9d80b 1%,#feea0b 1%,#febb00 99%,#a37802 100%);
+    background: -ms-linear-gradient(top, #8d8208 0%,#e9d80b 1%,#feea0b 1%,#febb00 99%,#a37802 100%);
+    background: linear-gradient(to bottom, #8d8208 0%,#e9d80b 1%,#feea0b 1%,#febb00 99%,#a37802 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8d8208', endColorstr='#a37802',GradientType=0 );
+}
+div.yellowLine a {
+    color: black;
+    text-decoration: underline;
+}
+div.yellowLine a:hover {
+    color: black;
+    text-decoration: underline;
+    font-weight: bold;
+}
+div.yellowLine h4 {
+    line-height: 30px;
+}
+
+.backImg {
+    position: absolute;
+    right: 0;
+    top: 400px;
+    z-index: -1;
+}
+
+.backLeftImg {
+    position: absolute;
+    left: 0px;
+    top: 458px;
+    z-index: -1;
+}
+.clientMenu {
+    text-align: left;
+}
+
+@media (max-width: 768px) {
+    .backImg {
+        position: absolute;
+        right: 0;
+        top: 800px;
+    }
+    .backLeftImg {
+        position: absolute;
+        left: 0px;
+        top: 781px;
+    }
+    .clientMenu {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+}
+
+#EmailTempaltes .k-textbox {width: 100%;}
+
+.panel {
+    background-color: black;
+}

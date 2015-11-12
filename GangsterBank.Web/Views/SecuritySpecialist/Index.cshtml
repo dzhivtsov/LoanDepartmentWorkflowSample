@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Security Specialist";
+}
+
+<h2>Operator</h2>
+
+@(Html.Kendo().TabStrip().Name("Actions")
+    .Items(
+    items =>
+    {
+        items.Add().Text("Approval Requests").LoadContentFrom("ApprovalRequests", "Credit").Selected(true);
+        items.Add().Text("Clients").LoadContentFrom("ApprovedClients", "Clients");
+    }
+      ))
